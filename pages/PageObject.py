@@ -8,16 +8,12 @@ from selenium.webdriver.support.wait import WebDriverWait
 class PageObject:
     class_title_page = 'title'
 
-    def __init__(self, driver=None, browser=None):
+    def __init__(self, driver=None):
         if driver:
             self.driver = driver
         else:
-            if browser == 'chrome':
-                self.driver = webdriver.Chrome()
-            elif browser == 'firefox':
-                self.driver = webdriver.Firefox()
-            elif browser == 'safari':
-                self.driver = webdriver.Safari()
+            self.driver = webdriver.Chrome()
+
 
     def is_url(self, url):
         return self.driver.current_url == url
