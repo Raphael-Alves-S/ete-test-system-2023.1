@@ -1,9 +1,4 @@
-import time
-
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-
 from pages.PageObject import PageObject
 
 
@@ -13,9 +8,8 @@ class LoginPage(PageObject):
     selector_by_name_username = 'username'
     selector_by_name_password = 'password'
 
-    def __init__(self, browser):
-        super(LoginPage, self).__init__(browser=browser)
-        self.WebDriverWait = None
+    def __init__(self, driver):
+        super(LoginPage, self).__init__(driver=driver)
 
     def open_page(self):
         self.driver.get(self.url)
