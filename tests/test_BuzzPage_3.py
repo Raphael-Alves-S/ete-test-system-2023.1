@@ -3,9 +3,9 @@ import pytest
 from pages.BuzzPage import BuzzyPage
 
 
-class TestBuzzPage1:
+class TestBuzzPage3:
 
-    def test_buzz_post(self, login_orangehr):
+    def test_delete_post(self, login_orangehr):
         login_p = login_orangehr
 
         leave_p = BuzzyPage(driver=login_p.driver)
@@ -15,3 +15,5 @@ class TestBuzzPage1:
 
         leave_p.buzzy_post()
         leave_p.view_post()
+
+        leave_p.delete_post()
