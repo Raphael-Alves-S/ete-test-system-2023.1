@@ -8,12 +8,14 @@ class BuzzyPage(PageObject):
     css_buzzy_input = '.oxd-buzz-post-input'
     xpath_btn_post = "//button[@class='oxd-button oxd-button--medium oxd-button--main']"
     xpath_btn_three_dots = "//div[@class='oxd-grid-1 orangehrm-buzz-newsfeed-posts']/div[1]//div[@class='orangehrm-buzz-post']//button[@class='oxd-icon-button']"
-    css_btn_edit_post = '.bi-pencil'
+    xpath_btn_edit_post = "//li[.='Edit Post']"
     xpath_buzz_post = "//p[.='Teste de post']"
 
     xpath_modal_tittle = "//p[.='Edit Post']"
     xpath_input_edit = "//div[@class='oxd-buzz-post oxd-buzz-post--active oxd-buzz-post--composing']/textarea[@class='oxd-buzz-post-input']"
+    css_input_edit = ".oxd-buzz-post--composing > .oxd-buzz-post-input"
     xpath_text_area = "//textarea[.='Teste de postEditado']"
+    css_btn_edit_post = '.bi-pencil'
     xpath_post_edit = "//div[@class='oxd-form-actions orangehrm-buzz-post-modal-actions']/button[@class='oxd-button oxd-button--medium oxd-button--main']"
 
     css_btn_delete_post = '.bi-trash'
@@ -39,7 +41,7 @@ class BuzzyPage(PageObject):
     # ----------------------------- Fazer um post ---------------------------- #
 
     def buzzy_post(self, post='Teste de post'):
-        self.wait_visible_element(By.CSS_SELECTOR,  self.css_buzzy_input, 10)
+        self.wait_visible_element(By.CSS_SELECTOR,  self.css_buzzy_input, 7)
         self.driver.find_element(By.CSS_SELECTOR,  self.css_buzzy_input).send_keys(post)
         self.driver.find_element(By.XPATH, self.xpath_btn_post).click()
 
@@ -50,20 +52,20 @@ class BuzzyPage(PageObject):
     # ----------------------------- Editar um post ---------------------------- #
 
     def edit_post(self, edit="Editado"):
-
         self.wait_visible_element(By.XPATH, self.xpath_btn_three_dots, 10)
         self.driver.find_element(By.XPATH, self.xpath_btn_three_dots).click()
 
         self.driver.find_element(By.CSS_SELECTOR, self.css_btn_edit_post).is_displayed()
         self.driver.find_element(By.CSS_SELECTOR, self.css_btn_edit_post).click()
 
-        self.wait_visible_element(By.XPATH, self.xpath_modal_tittle, 10)
+        self.wait_visible_element(By.XPATH, self.xpath_modal_tittle, 8)
 
-        self.wait_visible_element(By.XPATH, self.xpath_input_edit, 10)
-        self.driver.find_element(By.XPATH, self.xpath_input_edit).send_keys(edit)
-        self.wait_visible_element(By.XPATH, self.xpath_text_area, 10)
+        self.wait_visible_element(By.XPATH, self.xpath_input_edit, 9)
+        self.driver.find_element(By.CSS_SELECTOR, self.css_input_edit).send_keys(edit)
 
-        self.wait_visible_element(By.XPATH, self.xpath_post_edit, 10)
+        self.wait_visible_element(By.XPATH, self.xpath_text_area, 8)
+
+        self.wait_visible_element(By.XPATH, self.xpath_post_edit, 7)
         self.driver.find_element(By.XPATH, self.xpath_post_edit).click()
 
         # ----------------------------- Excluir um post ---------------------------- #
