@@ -4,10 +4,10 @@ from selenium.webdriver.common.by import By
 
 class PimPage(PageObject):
     xpath_menu_pim = "//a[@href='/web/index.php/pim/viewPimModule']/span[@class='oxd-text oxd-text--span oxd-main-menu-item--name']"
-    xpath_add_employee_btn = '//a[.="Add Employee"]'  ##botão de adicionar
-    class_fist_name = 'firstName'
-    class_middle_name = 'middleName'
-    class_last_name = 'lastName'
+    xpath_add_employee_btn = "//button[@class='oxd-button oxd-button--medium oxd-button--secondary']"  ##botão de adicionar
+    name_fist_name = "firstName"
+    name_middle_name = 'middleName'
+    name_last_name = "lastName"
     css_employee_id = '.oxd-input-field-bottom-space[data-v-7fe2d320] .oxd-input'
     css_login_details = '.oxd-switch-input'
     xpath_username = '//div[@class="orangehrm-employee-form"]/div[@class="oxd-form-row"]/div[1]//input[@class="oxd-input oxd-input--active"]'
@@ -27,12 +27,15 @@ class PimPage(PageObject):
         super(PimPage, self).__init__(driver=driver)
 
     def navigate_to_pim_module(self):
+        self.wait_visible_element(By.XPATH, self.xpath_menu_pim, 10)
         self.driver.find_element(By.XPATH, self.xpath_menu_pim).click()
 
     def add_employee(self, first_name="FirstName", last_name="LastName"):
+        self.wait_visible_element(By.XPATH, self.xpath_add_employee_btn, 10)
         self.driver.find_element(By.XPATH, self.xpath_add_employee_btn).click()
-        self.driver.find_element(By.CLASS_NAME, self.class_fist_name).send_keys(first_name)
-        self.driver.find_element(By.CLASS_NAME, self.class_last_name).send_keys(last_name)
+        self.wait_visible_element(By.NAME, self.name_fist_name, 10)
+        self.driver.find_element(By.NAME, self.name_fist_name).send_keys(first_name)
+        self.driver.find_element(By.NAME, self.name_last_name).send_keys(last_name)
         self.driver.find_element(By.CSS_SELECTOR, self.css_save_btn).click()
 
     def search_employee(self, employee_name="FirstName"):
@@ -42,8 +45,8 @@ class PimPage(PageObject):
 
     def edit_employee_details(self, new_first_name="NewName", new_last_name="NewLast"):
         self.driver.find_element(By.XPATH, self.xpath_employee_link_user).click()
-        self.driver.find_element(By.CLASS_NAME, self.class_fist_name).clear()
-        self.driver.find_element(By.CLASS_NAME, self.class_fist_name).send_keys(new_first_name)
-        self.driver.find_element(By.CLASS_NAME, self.class_last_name).clear()
-        self.driver.find_element(By.CLASS_NAME, self.class_last_name).send_keys(new_last_name)
+        self.driver.find_element(By.NAME, self.name_fist_name).clear()
+        self.driver.find_element(By.NAME, self.name_fist_name).send_keys(new_first_name)
+        self.driver.find_element(By.NAME, self.name_last_name).clear()
+        self.driver.find_element(By.NAME, self.name_last_name).send_keys(new_last_name)
         self.driver.find_element(By.XPATH, self.xpath_employee_edit_save).click()
