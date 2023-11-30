@@ -12,7 +12,7 @@ class BuzzyPage(PageObject):
     xpath_buzz_post = "//p[.='Teste de post']"
 
     xpath_modal_tittle = "//p[.='Edit Post']"
-    css_input_edit = '.oxd-buzz-post--composing > .oxd-buzz-post-input'
+    xpath_input_edit = "//div[@class='oxd-buzz-post oxd-buzz-post--active oxd-buzz-post--composing']/textarea[@class='oxd-buzz-post-input']"
     xpath_text_area = "//textarea[.='Teste de postEditado']"
     xpath_post_edit = "//div[@class='oxd-form-actions orangehrm-buzz-post-modal-actions']/button[@class='oxd-button oxd-button--medium oxd-button--main']"
 
@@ -50,6 +50,7 @@ class BuzzyPage(PageObject):
     # ----------------------------- Editar um post ---------------------------- #
 
     def edit_post(self, edit="Editado"):
+
         self.wait_visible_element(By.XPATH, self.xpath_btn_three_dots, 10)
         self.driver.find_element(By.XPATH, self.xpath_btn_three_dots).click()
 
@@ -58,8 +59,8 @@ class BuzzyPage(PageObject):
 
         self.wait_visible_element(By.XPATH, self.xpath_modal_tittle, 10)
 
-        self.wait_visible_element(By.CSS_SELECTOR, self.css_input_edit, 10)
-        self.driver.find_element(By.CSS_SELECTOR, self.css_input_edit).send_keys(edit)
+        self.wait_visible_element(By.XPATH, self.xpath_input_edit, 10)
+        self.driver.find_element(By.XPATH, self.xpath_input_edit).send_keys(edit)
         self.wait_visible_element(By.XPATH, self.xpath_text_area, 10)
 
         self.wait_visible_element(By.XPATH, self.xpath_post_edit, 10)
