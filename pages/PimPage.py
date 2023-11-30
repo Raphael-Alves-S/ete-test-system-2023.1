@@ -21,7 +21,8 @@ class PimPage(PageObject):
     css_search_employee = ".orangehrm-left-space"
     xpath_employee_name_search = "//div[@class='oxd-grid-4 orangehrm-full-width-grid']/div[1]//input[1]"
     xpath_employee_edit_save = "//div[@class='orangehrm-edit-employee-content']/div[@class='orangehrm-horizontal-padding orangehrm-vertical-padding']//button[@class='oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space']"
-    xpath_employee_link_user = "//div[@class='oxd-table-body']/div[1]//div[@class='oxd-table-cell oxd-padding-cell']/div[.='queen']"
+    xpath_employee_link_edit_user = "//div[@class='oxd-table-body']/div[1]//i[@class='oxd-icon bi-pencil-fill']"
+    css_employee_id_search = ".oxd-grid-4 .oxd-input"
 
     def __init__(self, driver):
         super(PimPage, self).__init__(driver=driver)
@@ -39,12 +40,13 @@ class PimPage(PageObject):
         self.driver.find_element(By.CSS_SELECTOR, self.css_save_btn).click()
 
     def search_employee(self, employee_name="FirstName"):
-        self.driver.find_element(By.XPATH, self.xpath_employee_list).click()
+        self.wait_visible_element(By.XPATH, self.xpath_employee_list, 10)
         self.driver.find_element(By.XPATH, self.xpath_employee_name_search).send_keys(employee_name)
         self.driver.find_element(By.CSS_SELECTOR, self.css_search_employee).click()
 
     def edit_employee_details(self, new_first_name="NewName", new_last_name="NewLast"):
-        self.driver.find_element(By.XPATH, self.xpath_employee_link_user).click()
+        self.wait_visible_element(By.XPATH, self.xpath_employee_link_edit_user, 10)
+        self.driver.find_element(By.XPATH, self.xpath_employee_link_edit_user).click()
         self.driver.find_element(By.NAME, self.name_fist_name).clear()
         self.driver.find_element(By.NAME, self.name_fist_name).send_keys(new_first_name)
         self.driver.find_element(By.NAME, self.name_last_name).clear()
