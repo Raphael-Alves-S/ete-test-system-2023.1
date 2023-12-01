@@ -47,6 +47,7 @@ class PimPage(PageObject):
     def edit_employee_details(self, new_first_name="NewName", new_last_name="NewLast"):
         self.wait_visible_element(By.XPATH, self.xpath_employee_link_edit_user, 10)
         self.driver.find_element(By.XPATH, self.xpath_employee_link_edit_user).click()
+        self.wait_visible_element(By.NAME, self.name_fist_name, 10)
         self.driver.find_element(By.NAME, self.name_fist_name).clear()
         self.driver.find_element(By.NAME, self.name_fist_name).send_keys(new_first_name)
         self.driver.find_element(By.NAME, self.name_last_name).clear()
