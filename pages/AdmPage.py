@@ -1,10 +1,9 @@
-import time
-
 from selenium.webdriver.common.by import By
 from pages.PageObject import PageObject
 
 
 class AdmPage(PageObject):
+
     url = "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers"
     select_menu_admin = "//a[.='Admin']"
     button_add_user = "//button[@class='oxd-button oxd-button--medium oxd-button--secondary']"
@@ -31,9 +30,6 @@ class AdmPage(PageObject):
     button_confirm_delete = ".oxd-button--label-danger"
     toast_modal = ".oxd-toast"
 
-    password = "Teste@1234"
-    username = ""
-
     def __init__(self, driver):
         super(AdmPage, self).__init__(driver=driver)
 
@@ -58,13 +54,13 @@ class AdmPage(PageObject):
         self.driver.find_element(By.XPATH, self.select_user_status).click()
         self.wait_visible_element(By.XPATH, self.select_value_user_status, 10)
         self.driver.find_element(By.XPATH, self.select_value_user_status).click()
-        self.driver.find_element(By.XPATH, self.password_input).send_keys(self.password)
+        self.driver.find_element(By.XPATH, self.password_input).send_keys("Teste@1234")
         self.driver.find_element(By.CSS_SELECTOR, self.input_employee_name).send_keys("A")
         self.wait_visible_element(By.XPATH, self.select_employee_name, 10)
         self.driver.find_element(By.XPATH, self.select_employee_name).click()
-        self.username = self.string_generator(7)
-        self.driver.find_element(By.XPATH, self.input_username).send_keys(self.username)
-        self.driver.find_element(By.XPATH, self.password_confirmation).send_keys(self.password)
+        username = self.string_generator(7)
+        self.driver.find_element(By.XPATH, self.input_username).send_keys(username)
+        self.driver.find_element(By.XPATH, self.password_confirmation).send_keys("Teste@1234")
 
     def save_button_new_user(self):
         self.click_button(By.CSS_SELECTOR, self.button_save_user, 1)
