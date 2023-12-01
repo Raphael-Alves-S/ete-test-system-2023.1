@@ -13,6 +13,7 @@ class LoginPage(PageObject):
 
     def open_page(self):
         self.driver.get(self.url)
+        self.driver.maximize_window()
 
     def is_url_login(self):
         return self.is_url(self.url)
@@ -25,3 +26,4 @@ class LoginPage(PageObject):
         self.driver.find_element(By.NAME, self.selector_by_name_username).send_keys(user_name)
         self.driver.find_element(By.NAME, self.selector_by_name_password).send_keys(password)
         self.click_login_btn()
+

@@ -1,12 +1,15 @@
+import random
+import string
+
 from selenium import webdriver
 from selenium.common import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 
 
 class PageObject:
-    class_title_page = 'title'
 
     def __init__(self, driver=None):
         if driver:
@@ -14,9 +17,21 @@ class PageObject:
         else:
             self.driver = webdriver.Chrome()
 
-
     def is_url(self, url):
         return self.driver.current_url == url
+
+    def click_button(self, by, value, waittime):
+        self.wait_visible_element(by, value, waittime)
+        self.driver.find_element(by, value).click()
+
+    def select_element(self, by, value, text):
+        select_element = self.driver.find_element(by, value)
+        select = Select(select_element)
+        select.select_by_visible_text(text)
+
+    def string_generator(self, size, chars=string.ascii_uppercase + string.ascii_lowercase):
+        password = ''.join(random.choice(chars) for _ in range(size))
+        return password
 
     def wait_visible_element(self, by, value, timeout):
         try:
